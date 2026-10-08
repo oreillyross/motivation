@@ -10,6 +10,7 @@ iteratively, spec-first: read the docs below before changing anything.
 | `docs/vision.md` | Why this exists, who it's for, what "done" looks like |
 | `docs/roadmap.md` | The ordered milestones (Task 1 → Task 4) |
 | `docs/tasks.md` | The **current** task, broken into checkable steps — work from here |
+| `docs/archive/` | Completed tasks: frozen plan + what shipped + decisions + verification, one file per task |
 | `docs/style_guide.md` | Paper Kite visual spec. Source of truth for colors, type, shapes, SVG rules, states and acceptance checks |
 
 ## Working rules
@@ -18,8 +19,9 @@ iteratively, spec-first: read the docs below before changing anything.
   future roadmap work forward (no auth, DB, admin or LLM code until its task).
 - **Spec before code.** If a task is ambiguous, update `docs/tasks.md` with the
   decision first, then implement.
-- **Tick boxes as you go** in `docs/tasks.md`. When a task is done, move the next
-  one in from `docs/roadmap.md`.
+- **Tick boxes as you go** in `docs/tasks.md`. When a task is done, archive it
+  (`docs/archive/README.md` has the steps), mark it done in `docs/roadmap.md`,
+  then move the next one in. The next task starts only after its PR is approved.
 - **Style guide is law.** Use only tokens from `src/styles/global.css` (never raw
   hex in components), Caveat only for h1/h2, no uppercase, hard shadows only,
   respect `prefers-reduced-motion`. Run the style guide's acceptance checks
@@ -40,6 +42,7 @@ iteratively, spec-first: read the docs below before changing anything.
 
 ```
 docs/                    specs (this file, vision, roadmap, tasks, style guide)
+  archive/               completed tasks, one dated file each
 src/
   assets/svg/            illustrations (hero-kite.svg, divider-string.svg, …)
   styles/global.css      Tailwind v4 entry + Paper Kite tokens
@@ -55,7 +58,7 @@ SVGs in `src/assets/svg/` use `var(--token, #fallback)` and are meant to be
 **inlined** (Astro `?raw` import or SVG component) so they follow light/dark.
 Use `<img>` only for exported, hex-baked variants (favicon, social card).
 
-## Commands (once Task 1 scaffolds the project)
+## Commands
 
 ```bash
 pnpm install

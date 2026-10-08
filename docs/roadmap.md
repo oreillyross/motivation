@@ -2,10 +2,13 @@
 
 Four tasks, in order. Each ships something usable. The active task is expanded
 step-by-step in `docs/tasks.md`; the rest stay at this level until they're next.
+Completed tasks are archived in `docs/archive/`.
 
 ---
 
-## Task 1 — Quotes on the home page (MVP V1) · **active**
+## Task 1 — Quotes on the home page (MVP V1) · **done 2026-10-08**
+
+Archived: [`docs/archive/2026-10-08-task1-quotes-home-page.md`](archive/2026-10-08-task1-quotes-home-page.md).
 
 Scaffold Astro + Tailwind v4 with the Paper Kite style and show a motivational
 quote from a static list on `/`.
@@ -14,14 +17,14 @@ quote from a static list on `/`.
   optional author via `Quote text — Author`.
 - Parser in `src/lib/quotes.ts` (+ tests); pick a quote, "another one" shuffle.
 - Base layout, nav wordmark, hero kite, divider, quote card, light/dark.
-- Static deploy.
+- Static deploy (`dist/` ready; host choice carried into Task 2).
 
 **Done when:** `pnpm build` is green, the home page shows a quote from the
 pasted list, and the style guide acceptance checks pass.
 
 ---
 
-## Task 2 — Agent-suggested quotes from people I follow
+## Task 2 — Agent-suggested quotes from people I follow · **next (queued in `docs/tasks.md`)**
 
 - Static file `src/data/people.txt` — one person per line (e.g. Tim Ferriss,
   Derek Sivers), editable over time.

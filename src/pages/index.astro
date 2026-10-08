@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import QuoteCard from "../components/QuoteCard.astro";
+import raw from "../data/quotes.txt?raw";
+import heroKite from "../assets/svg/hero-kite.svg?raw";
+import divider from "../assets/svg/divider-string.svg?raw";
+import emptyCloud from "../assets/svg/empty-cloud.svg?raw";
+import { parseQuotes } from "../lib/quotes";
+import { decorative } from "../lib/svg";
+
+const quotes = parseQuotes(raw);
+const first = quotes[0];
+---
+
+<BaseLayout>
+  <main class="mx-auto max-w-[1040px] px-5 pb-14 md:pb-24">
+    <div class="mx-auto max-w-[720px]" set:html={decorative(heroKite)} />
+
+    <h1 class="mt-2 text-center text-h1">Here's a little nudge for today</h1>
+
+    {
+      first ? (
+        <section aria-label="Quote" class="mt-10">
+          <div aria-live="polite">
+            <QuoteCard quote={first} />
+          </div>
+          <div class="mt-8 flex justify-center">
+            <button
+              type="button"
+              data-another
+              hidden
+              class="inline-flex h-11 items-center rounded-full border-2 border-foreground bg-primary px-5 text-base leading-[1.2] font-bold text-primary-foreground shadow-hard transition-[transform,box-shadow,background-color] duration-150 ease-bounce hover:bg-primary-hover hover:shadow-hard-lg active:shadow-hard-sm motion-safe:hover:-translate-x-px motion-safe:hover:-translate-y-px motion-safe:active:translate-x-0.5 motion-safe:active:translate-y-0.5"
+            >
+              Another one
+            </button>
+          </div>
+          <script type="application/json" id="quotes-data" set:html={JSON.stringify(quotes).replace(/</g, "\\u003c")} />
+        </section>
+      ) : (
+        <section class="mt-10 text-center">
+          <div class="mx-auto w-full max-w-[320px]" set:html={emptyCloud} />
+          <h2 class="mt-4 text-h2">My kite's stuck in a cloud</h2>
+          <p class="mx-auto mt-2 max-w-[62ch] text-muted-foreground">
+            No quotes yet. Paste a few into <code class="rounded-sm bg-muted px-1.5 py-0.5 font-mono text-small">src/data/quotes.txt</code> and I'll pick one for you.
+          </p>
+        </section>
+      )
+    }
+
+    <div class="mt-14 h-8 md:mt-24 [&>svg]:h-8 [&>svg]:w-full" set:html={divider.replace("<svg", '<svg preserveAspectRatio="xMaxYMid slice"')} />
+    <footer class="mt-4 text-center text-small text-muted-foreground">
+      Quotes from people I follow, picked fresh each visit.
+    </footer>
+  </main>
+</BaseLayout>
+
+<script>
+  import { pickIndex, type Quote } from "../lib/quotes";
+
+  const data = document.getElementById("quotes-data");
+  const button = document.querySelector<HTMLButtonElement>("[data-another]");
+  const text = document.querySelector<HTMLElement>("[data-quote-text]");
+  const caption = document.querySelector<HTMLElement>("[data-quote-author]");
+
+  if (data && text && caption) {
+    const quotes: Quote[] = JSON.parse(data.textContent ?? "[]");
+    let current = -1;
+
+    const show = (i: number) => {
+      const quote = quotes[i];
+      if (!quote) return;
+      current = i;
+      text.textContent = quote.text;
+      caption.querySelector("span")!.textContent = quote.author ?? "";
+      caption.hidden = !quote.author;
+    };
+
+    show(pickIndex(quotes.length));
+
+    if (button && quotes.length > 1) {
+      button.hidden = false;
+      button.addEventListener("click", () => show(pickIndex(quotes.length, { exclude: current })));
+    }
+  }
+</script>

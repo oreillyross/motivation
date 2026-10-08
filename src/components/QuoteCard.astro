@@ -1,0 +1,19 @@
+---
+import type { Quote } from "../lib/quotes";
+
+interface Props {
+  quote: Quote;
+}
+
+const { quote } = Astro.props;
+---
+
+<figure class="relative mx-auto max-w-[62ch] rounded-wobble border border-border bg-card px-6 pt-10 pb-8 text-card-foreground">
+  <span aria-hidden="true" class="absolute -top-[9px] left-1/2 h-[18px] w-16 -translate-x-1/2 -rotate-4 bg-accent"></span>
+  <blockquote>
+    <p data-quote-text class="text-h4 font-semibold sm:text-h3">{quote.text}</p>
+  </blockquote>
+  <figcaption data-quote-author class="mt-4 text-small font-semibold text-muted-foreground" hidden={!quote.author}>
+    — <span>{quote.author}</span>
+  </figcaption>
+</figure>
