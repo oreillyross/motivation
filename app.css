@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #FFFAF3;
+  --foreground: #3A2F45;
+  --card: #FFFFFF;
+  --card-foreground: #3A2F45;
+  --popover: #FFFFFF;
+  --popover-foreground: #3A2F45;
+  --muted: #F6EDE2;
+  --muted-foreground: #6B5E78;
+  --secondary: #F6EDE2;
+  --secondary-foreground: #3A2F45;
+  --border: #EBDCCB;
+  --input: #86779A;
+  --primary: #FFB5A7;
+  --primary-hover: #FFA492;
+  --primary-foreground: #3A2F45;
+  --accent: #C9B6F2;
+  --accent-foreground: #3A2F45;
+  --ring: #7C5CC4;
+  --destructive: #B3261E;
+  --success: #2F7D4F;
+  --warning: #8A5A00;
+
+  /* Decorative only: never text, never the sole carrier of meaning */
+  --deco-mint: #BEE3DB;
+  --deco-butter: #FFE8A3;
+}
+
+.dark {
+  --background: #241C2E;
+  --foreground: #F7EFE6;
+  --card: #2E2439;
+  --card-foreground: #F7EFE6;
+  --popover: #2E2439;
+  --popover-foreground: #F7EFE6;
+  --muted: #382C46;
+  --muted-foreground: #BFB0CC;
+  --secondary: #382C46;
+  --secondary-foreground: #F7EFE6;
+  --border: #4A3B5C;
+  --input: #8D7BA3;
+  --primary: #FFB5A7;
+  --primary-hover: #FFC7BC;
+  --primary-foreground: #241C2E;
+  --accent: #C9B6F2;
+  --accent-foreground: #241C2E;
+  --ring: #C9B6F2;
+  --destructive: #FF8A80;
+  --success: #8FD9A8;
+  --warning: #FFD27A;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-deco-mint: var(--deco-mint);
+  --color-deco-butter: var(--deco-butter);
+
+  --font-display: "Caveat", "Comic Sans MS", "Segoe Print", cursive;
+  --font-sans: "Nunito", system-ui, "Segoe UI", sans-serif;
+  --font-mono: "Fira Code", ui-monospace, Menlo, monospace;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-h4: 1.4375rem;
+  --text-h4--line-height: 1.3;
+  --text-h3: 1.875rem;
+  --text-h3--line-height: 1.2;
+  --text-h2: clamp(2rem, 1.5rem + 2.2vw, 2.5rem);
+  --text-h2--line-height: 1.05;
+  --text-h1: clamp(2.5rem, 1.6rem + 4vw, 3.375rem);
+  --text-h1--line-height: 1.05;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+  --radius-full: 9999px;
+
+  --shadow-hard: 3px 3px 0 var(--foreground);
+  --shadow-hard-lg: 4px 4px 0 var(--foreground);
+  --shadow-hard-sm: 1px 1px 0 var(--foreground);
+
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@utility rounded-wobble {
+  border-radius: 18px 22px 16px 20px;
+}
+
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.65;
+  }
+  h1, h2 { font-family: var(--font-display); font-weight: 700; }
+  h3, h4 { font-family: var(--font-sans); font-weight: 700; }
+  :focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pk-kite { transform-origin: 812px 239px; animation: pk-sway 4s ease-in-out infinite alternate; }
+  }
+  @keyframes pk-sway { from { transform: rotate(-2deg); } to { transform: rotate(2deg); } }
+}
