@@ -1,0 +1,21 @@
+# Archive
+
+The audit trail of completed tasks, oldest first. Each file is a frozen copy
+of the task exactly as it was planned in `docs/tasks.md` (boxes ticked). It
+also records what shipped, the decisions made during the build, and the
+verification evidence. Don't edit an archived file after its PR merges. If
+something changes later, record it in the task that changed it.
+
+| # | Task | Completed | Branch | PR | File |
+|---|---|---|---|---|---|
+| 1 | Quotes on the home page (MVP V1) | 2026-10-08 | `god/laughing-pasteur-q8do3e` | _pending_ | [2026-10-08-task1-quotes-home-page.md](2026-10-08-task1-quotes-home-page.md) |
+
+## How to archive a task
+
+1. Tick every box in `docs/tasks.md`.
+2. Copy the task into `docs/archive/YYYY-MM-DD-taskN-<slug>.md`. Add a header
+   table (status, date, branch, PR), then **What shipped**, **Decisions** and
+   **Verification**.
+3. Add a row to the table above.
+4. Mark the task done in `docs/roadmap.md` and link the archive file.
+5. Replace `docs/tasks.md` with the next task from the roadmap, broken into steps.
