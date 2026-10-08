@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" aria-hidden="true" focusable="false" fill="none" stroke="var(--foreground,#3A2F45)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- kite, half swallowed by the cloud -->
+  <g stroke="none" transform="translate(3 3)">
+    <path d="M196 22 238 72 196 70Z" fill="var(--primary,#FFB5A7)"/>
+    <path d="M196 22 196 70 156 66Z" fill="var(--accent,#C9B6F2)"/>
+  </g>
+  <path d="M196 22Q218 46 238 72L226 96M196 22Q176 44 156 66L164 92"/>
+  <path d="M196 22V96M156 66q40 3 82 6" stroke-width="2"/>
+  <!-- cloud -->
+  <path d="M72 168c-34 0-44-40-10-48 2-36 54-48 74-20 14-30 68-32 80 4 6-26 52-24 54 8 34 4 34 50 2 56-30 6-170 6-200 0Z" fill="var(--muted,#F6EDE2)" stroke="none" transform="translate(3 3)"/>
+  <path d="M72 168c-34 0-44-40-10-48 2-36 54-48 74-20 14-30 68-32 80 4 6-26 52-24 54 8 34 4 34 50 2 56-30 6-170 6-200 0Z" fill="var(--card,#FFFFFF)"/>
+  <!-- tail hanging below -->
+  <path d="M182 168c-8 14 10 22 2 34s-14 18-4 30"/>
+  <g transform="translate(186 196) rotate(-14)">
+    <path d="M-11-8 0 0-11 8ZM11-8 0 0 11 8Z" fill="var(--deco-butter,#FFE8A3)" stroke="none" transform="translate(2 2)"/>
+    <path d="M-11-8 0 0-11 8ZM11-8 0 0 11 8Z"/>
+  </g>
+  <!-- little stars and dots -->
+  <path d="M60 50l3 8 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1Z"/>
+  <path d="M276 116q8-10 16 0t16 0"/>
+  <circle cx="40" cy="190" r="4" fill="var(--deco-mint,#BEE3DB)" stroke="none"/>
+  <circle cx="280" cy="40" r="4" fill="var(--primary,#FFB5A7)" stroke="none"/>
+</svg>
