@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="pk-hero-title" fill="none" stroke="var(--foreground,#3A2F45)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <title id="pk-hero-title">A paper kite with a looping tail flying past clouds and stars</title>
+  <defs>
+    <path id="pk-star" d="M0-14 3.5-4.9 13.3-4.3 5.7 1.9 8.2 11.3 0 6-8.2 11.3-5.7 1.9-13.3-4.3-3.5-4.9Z"/>
+    <path id="pk-bow" d="M-13-9 0 0-13 9ZM13-9 0 0 13 9Z"/>
+    <path id="pk-cloud" d="M40 80C10 80 0 40 35 35 40 0 95-5 105 30c35-15 65 20 40 45-5 10-95 10-105 5Z"/>
+  </defs>
+
+  <!-- clouds -->
+  <use href="#pk-cloud" x="113" y="113" fill="var(--muted,#F6EDE2)" stroke="none"/>
+  <use href="#pk-cloud" x="110" y="110"/>
+  <g transform="translate(950 370) scale(1.15)">
+    <use href="#pk-cloud" x="3" y="3" fill="var(--muted,#F6EDE2)" stroke="none"/>
+    <use href="#pk-cloud"/>
+  </g>
+
+  <!-- stars -->
+  <g transform="translate(470 120) rotate(-12)">
+    <use href="#pk-star" x="3" y="3" fill="var(--deco-butter,#FFE8A3)" stroke="none"/>
+    <use href="#pk-star"/>
+  </g>
+  <g transform="translate(1080 110) rotate(10) scale(1.4)">
+    <use href="#pk-star" x="2" y="2" fill="var(--deco-butter,#FFE8A3)" stroke="none"/>
+    <use href="#pk-star"/>
+  </g>
+  <g transform="translate(600 330) rotate(20) scale(.8)">
+    <use href="#pk-star" x="3" y="3" fill="var(--accent,#C9B6F2)" stroke="none"/>
+    <use href="#pk-star"/>
+  </g>
+  <g transform="translate(250 380) rotate(-6) scale(1.1)">
+    <use href="#pk-star" x="3" y="3" fill="var(--primary,#FFB5A7)" stroke="none"/>
+    <use href="#pk-star"/>
+  </g>
+
+  <!-- squiggles, wind curls, dots -->
+  <path d="M90 470q12-16 24 0t24 0 24 0 24 0"/>
+  <path d="M520 220q10-14 20 0t20 0 20 0"/>
+  <path d="M1040 200c30-20 60 10 40 30-14 14-34 0-24-14"/>
+  <path d="M380 250c26-18 52 8 36 26-12 12-30 0-22-12"/>
+  <g stroke="none">
+    <circle cx="330" cy="150" r="5" fill="var(--accent,#C9B6F2)"/>
+    <circle cx="560" cy="460" r="6" fill="var(--primary,#FFB5A7)"/>
+    <circle cx="1130" cy="300" r="5" fill="var(--deco-mint,#BEE3DB)"/>
+    <circle cx="700" cy="90" r="4" fill="var(--deco-mint,#BEE3DB)"/>
+    <circle cx="160" cy="300" r="4" fill="var(--deco-butter,#FFE8A3)"/>
+  </g>
+
+  <!-- kite + tail -->
+  <g class="pk-kite">
+    <g stroke="none" transform="translate(5 4)">
+      <path d="M820 70 812 239 690 230Z" fill="var(--primary,#FFB5A7)"/>
+      <path d="M820 70 960 250 812 239Z" fill="var(--accent,#C9B6F2)"/>
+      <path d="M690 230 812 239 800 470Z" fill="var(--deco-mint,#BEE3DB)"/>
+      <path d="M812 239 960 250 800 470Z" fill="var(--deco-butter,#FFE8A3)"/>
+    </g>
+    <path d="M820 70Q893 157 960 250 884 362 800 470 742 352 690 230 752 148 820 70Z"/>
+    <path d="M820 70Q814 240 800 470M690 230q122 4 270 20"/>
+    <path d="M800 470c-30 70-110 90-160 50-40-32 0-80 36-50 40 34-36 110-136 90-80-16-120-60-180-40s-80 60-140 52"/>
+    <g transform="translate(728 536) rotate(-20)">
+      <use href="#pk-bow" x="2" y="2" fill="var(--accent,#C9B6F2)" stroke="none"/>
+      <use href="#pk-bow"/>
+    </g>
+    <g transform="translate(540 560) rotate(12)">
+      <use href="#pk-bow" x="2" y="2" fill="var(--primary,#FFB5A7)" stroke="none"/>
+      <use href="#pk-bow"/>
+    </g>
+    <g transform="translate(360 520) rotate(-8)">
+      <use href="#pk-bow" x="2" y="2" fill="var(--deco-butter,#FFE8A3)" stroke="none"/>
+      <use href="#pk-bow"/>
+    </g>
+  </g>
+</svg>
