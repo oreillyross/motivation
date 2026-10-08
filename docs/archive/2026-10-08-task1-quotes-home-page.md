@@ -5,7 +5,7 @@
 | **Status** | Done, pending PR review |
 | **Completed** | 2026-10-08 |
 | **Branch** | `god/laughing-pasteur-q8do3e` |
-| **Pull request** | _see `docs/archive/README.md`_ |
+| **Pull request** | [oreillyross/motivation#2](https://github.com/oreillyross/motivation/pull/2) |
 
 This is the task as planned (copied from `docs/tasks.md` with every box ticked),
 followed by what was actually built, the decisions taken along the way, and the

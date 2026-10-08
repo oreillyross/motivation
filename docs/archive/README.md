@@ -8,7 +8,7 @@ something changes later, record it in the task that changed it.
 
 | # | Task | Completed | Branch | PR | File |
 |---|---|---|---|---|---|
-| 1 | Quotes on the home page (MVP V1) | 2026-10-08 | `god/laughing-pasteur-q8do3e` | _pending_ | [2026-10-08-task1-quotes-home-page.md](2026-10-08-task1-quotes-home-page.md) |
+| 1 | Quotes on the home page (MVP V1) | 2026-10-08 | `god/laughing-pasteur-q8do3e` | [oreillyross/motivation#2](https://github.com/oreillyross/motivation/pull/2) | [2026-10-08-task1-quotes-home-page.md](2026-10-08-task1-quotes-home-page.md) |
 
 ## How to archive a task
 
