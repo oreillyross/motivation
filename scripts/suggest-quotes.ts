@@ -10,7 +10,7 @@ import {
 } from "../src/lib/suggestions";
 import { PATHS, readQuotes, readRejected, readSuggestions, readText, writeSuggestions } from "./data";
 
-const MODEL = "claude-opus-5-5";
+const MODEL = "claude-haiku-5-5";
 const MAX_TOKENS = 16000;
 const MAX_CONTINUATIONS = 3;
 
