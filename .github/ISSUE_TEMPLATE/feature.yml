@@ -1,0 +1,44 @@
+name: Feature request (agent-ready)
+description: Small, single-slice feature for the coding agent
+labels: ["feature"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / goal
+      description: What should be possible that isn't today, and why?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Checklist. Each item must be verifiable.
+      placeholder: "- [ ] ...\n- [ ] ..."
+    validations:
+      required: true
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of scope
+      description: What the agent must NOT touch or build.
+    validations:
+      required: true
+  - type: textarea
+    id: areas
+    attributes:
+      label: Likely files / areas
+      description: Routers, schema, components, packages involved.
+  - type: textarea
+    id: verify
+    attributes:
+      label: How to verify
+      description: Commands or manual steps that prove it works.
+    validations:
+      required: true
+  - type: checkboxes
+    id: schema
+    attributes:
+      label: Touches DB schema?
+      options:
+        - label: Yes (migration must be generated for human review, never applied)
