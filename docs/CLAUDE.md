@@ -46,12 +46,12 @@ docs/                    specs (this file, vision, roadmap, tasks, style guide)
 src/
   assets/svg/            illustrations (hero-kite.svg, divider-string.svg, …)
   styles/global.css      Tailwind v4 entry + Paper Kite tokens
-  data/                  quotes.txt, people.txt (+ suggestions.json, rejected.json once generated)
+  data/                  quotes.txt, people.txt, wikiquote-pages.txt (+ suggestions.json, rejected.json once generated)
   lib/                   pure TS helpers (e.g. quote parsing)            [Task 1+]
   components/            Astro components                                [Task 1+]
   layouts/               BaseLayout.astro (fonts, theme script)          [Task 1+]
   pages/                 routes                                          [Task 1+]
-scripts/                 CLI: suggest-quotes.ts (agent), review-quotes.ts, data.ts   [Task 2]
+scripts/                 CLI: suggest-quotes.ts (agent), review-quotes.ts, import-wikiquote.ts, data.ts   [Task 2]
 .github/workflows/       suggest-quotes.yml: new people in people.txt -> auto-add quotes (needs repo secret ANTHROPIC_API_KEY or OPENAI_API_KEY)
 public/                  favicon, social card                            [Task 1+]
 ```
@@ -70,6 +70,7 @@ pnpm check        # astro check (types)
 pnpm test         # vitest (lib/ helpers)
 pnpm quotes:suggest [--person "Name"] [--limit N]   # agent -> suggestions.json (needs ANTHROPIC_API_KEY or OPENAI_API_KEY; --provider anthropic|openai)
 pnpm quotes:suggest --auto-approve ...              # no review: appends straight to quotes.txt (CI uses this)
+pnpm quotes:wikiquote [--page "Title" [--topic]] [--per-page N] [--dry-run]   # Wikiquote -> appends sourced quotes to quotes.txt (needs WIKIQUOTE_CONTACT)
 pnpm quotes:review                                  # approve/reject/skip/edit -> quotes.txt
 ```
 

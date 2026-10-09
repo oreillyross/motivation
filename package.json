@@ -11,6 +11,7 @@
     "test": "vitest run",
     "astro": "astro",
     "quotes:suggest": "tsx --env-file-if-exists=.env scripts/suggest-quotes.ts",
+    "quotes:wikiquote": "tsx --env-file-if-exists=.env scripts/import-wikiquote.ts",
     "quotes:review": "tsx scripts/review-quotes.ts"
   },
   "dependencies": {
