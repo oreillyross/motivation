@@ -13,7 +13,7 @@ something changes later, record it in the task that changed it.
 | 2 | Agent-suggested quotes from people I follow | 2026-10-09 | `god/eloquent-lamport-2eshsr` | [oreillyross/motivation#4](https://github.com/oreillyross/motivation/pull/4) | [2026-10-09-task2-agent-suggested-quotes.md](2026-10-09-task2-agent-suggested-quotes.md) |
 | – | Automation: add quotes when people.txt changes | 2026-10-09 | `god/eloquent-lamport-2eshsr` | [oreillyross/motivation#5](https://github.com/oreillyross/motivation/pull/5) | [2026-10-09-automation-suggest-quotes-action.md](2026-10-09-automation-suggest-quotes-action.md) |
 | – | Micro edit: Anthropic or OpenAI provider | 2026-10-09 | `god/eloquent-lamport-2eshsr` | [oreillyross/motivation#5](https://github.com/oreillyross/motivation/pull/5) | [2026-10-09-micro-edit-openai-provider.md](2026-10-09-micro-edit-openai-provider.md) |
-| – | Micro edit: Space bar shows another quote | 2026-10-09 | `god/eloquent-lamport-2eshsr` | PR_LINK | [2026-10-09-micro-edit-spacebar-next-quote.md](2026-10-09-micro-edit-spacebar-next-quote.md) |
+| – | Micro edit: Space bar shows another quote | 2026-10-09 | `god/eloquent-lamport-2eshsr` | [oreillyross/motivation#6](https://github.com/oreillyross/motivation/pull/6) | [2026-10-09-micro-edit-spacebar-next-quote.md](2026-10-09-micro-edit-spacebar-next-quote.md) |
 
 ## How to archive a task
 

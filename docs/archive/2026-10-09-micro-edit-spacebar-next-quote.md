@@ -5,7 +5,7 @@
 | Type | Micro edit (not a roadmap task) |
 | Date | 2026-10-09 |
 | Branch | `god/eloquent-lamport-2eshsr` |
-| Pull request | PR_LINK |
+| Pull request | [oreillyross/motivation#6](https://github.com/oreillyross/motivation/pull/6) |
 
 ## Why
 
