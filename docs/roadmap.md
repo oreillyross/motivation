@@ -24,7 +24,9 @@ pasted list, and the style guide acceptance checks pass.
 
 ---
 
-## Task 2 — Agent-suggested quotes from people I follow · **next (queued in `docs/tasks.md`)**
+## Task 2 — Agent-suggested quotes from people I follow · **done 2026-10-09**
+
+Archived: [`docs/archive/2026-10-09-task2-agent-suggested-quotes.md`](archive/2026-10-09-task2-agent-suggested-quotes.md). Live-API checks carried into Task 3.
 
 - Static file `src/data/people.txt` — one person per line (e.g. Tim Ferriss,
   Derek Sivers), editable over time.
@@ -42,7 +44,7 @@ de-duplicated suggestions that I can approve into the live list.
 
 ---
 
-## Task 3 — Settings page (admin, password-gated)
+## Task 3 — Settings page (admin, password-gated) · **next (queued in `docs/tasks.md`)**
 
 Overlaps Task 2: move the agent run and list editing into the browser.
 
