@@ -46,11 +46,12 @@ docs/                    specs (this file, vision, roadmap, tasks, style guide)
 src/
   assets/svg/            illustrations (hero-kite.svg, divider-string.svg, …)
   styles/global.css      Tailwind v4 entry + Paper Kite tokens
-  data/                  static content (quotes.txt, later people.txt)   [Task 1+]
+  data/                  quotes.txt, people.txt (+ suggestions.json, rejected.json once generated)
   lib/                   pure TS helpers (e.g. quote parsing)            [Task 1+]
   components/            Astro components                                [Task 1+]
   layouts/               BaseLayout.astro (fonts, theme script)          [Task 1+]
   pages/                 routes                                          [Task 1+]
+scripts/                 CLI: suggest-quotes.ts (agent), review-quotes.ts, data.ts   [Task 2]
 public/                  favicon, social card                            [Task 1+]
 ```
 
@@ -66,6 +67,8 @@ pnpm dev          # local dev server
 pnpm build        # static build to dist/
 pnpm check        # astro check (types)
 pnpm test         # vitest (lib/ helpers)
+pnpm quotes:suggest [--person "Name"] [--limit N]   # agent -> suggestions.json (needs ANTHROPIC_API_KEY)
+pnpm quotes:review                                  # approve/reject/skip/edit -> quotes.txt
 ```
 
 ## Conventions

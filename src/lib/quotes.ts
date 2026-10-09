@@ -8,7 +8,8 @@ function clean(s: string): string {
   return s.trim().replace(WRAPPING_QUOTES, "").trim();
 }
 
-function key(text: string): string {
+/** Normalised identity of a quote's text, shared by every de-dupe check. */
+export function quoteKey(text: string): string {
   return text.toLowerCase().replace(/\s+/g, " ");
 }
 
@@ -22,7 +23,7 @@ export function parseQuotes(raw: string): Quote[] {
     const text = clean(body ?? "");
     if (!text) continue;
 
-    const k = key(text);
+    const k = quoteKey(text);
     if (seen.has(k)) continue;
     seen.add(k);
 

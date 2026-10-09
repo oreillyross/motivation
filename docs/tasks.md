@@ -7,93 +7,55 @@ Completed tasks: `docs/archive/`.
 
 ---
 
-## Task 2: Agent-suggested quotes from people I follow
+## Task 3: Settings page (admin, password-gated)
 
-> **Status: queued.** Don't start this until Ross has reviewed and merged the Task 1 PR
-> and gives the go-ahead.
+> **Status: queued.** Don't start until Ross has reviewed and merged the Task 2 PR
+> and gives the go-ahead. Steps below are a first cut; refine them (and record
+> decisions) before coding.
 
-**Goal:** `pnpm quotes:suggest` reads the people I follow, asks Claude (with web
-search) for real, attributable quotes from each person, and writes de-duplicated,
-sourced suggestions to a pending file. Nothing goes live until I approve it into
-`quotes.txt`.
+**Goal:** from the browser, behind one password, I can edit the quotes and people
+lists, run the Task 2 agent, and approve/reject/edit suggestions. Changes show on
+the home page with no redeploy.
 
-### Carried over from Task 1
+### Carried over from Task 2
 
-- [ ] Ross picks a static deploy host (Vercel / Netlify / Cloudflare Pages) and
-  connects the repo. `pnpm build` → `dist/` works on any of them. This is not
-  blocking for Task 2 code.
+- [ ] Real `pnpm quotes:suggest` run for the 2 sample people (needs `ANTHROPIC_API_KEY`).
+  Spot-check every `sourceUrl`.
+- [ ] Confirm which path the live API accepts: structured output + web search, or the
+  `save_quotes` fallback. Record it in the archive and here.
+- [ ] Approve one real suggestion via `quotes:review` and confirm it shows after `pnpm build`.
+- [ ] Ross picks a deploy host. Task 3 needs one that supports SSR (Vercel or Node-friendly
+  Netlify/Cloudflare), so this now blocks.
 
-### Input (from me)
+### Steps (draft)
 
-`src/data/people.txt`, one person per line, editable over time:
+**1. Decisions first (update this file before coding)**
+- [ ] Pick the SSR adapter from the chosen host.
+- [ ] Pick the DB (Turso/libSQL + Drizzle per the roadmap) and the home page strategy:
+  prerender at build vs. read from the DB at request time. "No redeploy needed" means
+  the home page must read the DB (SSR or a client fetch).
 
-```
-Tim Ferriss
-Derek Sivers
-```
+**2. Server + auth**
+- [ ] Add the adapter; only `/settings` and `/api/*` are server-rendered.
+- [ ] `ADMIN_PASSWORD` + `SESSION_SECRET` in `.env.example`; login form sets a signed,
+  httpOnly, SameSite cookie; constant-time password compare; logout.
+- [ ] Gate every `/settings` and `/api/*` route.
 
-Blank lines and `#` comments are ignored.
+**3. Storage**
+- [ ] Drizzle schema: `quotes`, `people`, `suggestions`, `rejected`.
+- [ ] Seed script from `quotes.txt` / `people.txt`; reuse `parseQuotes` / `parsePeople`.
 
-### Steps
-
-**1. Setup**
-- [ ] Add `@anthropic-ai/sdk` and `zod` (dependencies) and `tsx` (dev) to run the TS script.
-- [ ] Add `ANTHROPIC_API_KEY=` to `.env.example`. The script loads `.env` with Node's
-  `--env-file-if-exists` (no dotenv dependency).
-- [ ] Script `"quotes:suggest": "tsx --env-file-if-exists=.env scripts/suggest-quotes.ts"`.
-
-**2. Pure logic (`src/lib/`, tested)**
-- [ ] `src/lib/people.ts`: `parsePeople(raw): string[]` (trim, drop blanks and `#`
-  comments, de-dupe case-insensitively) + tests.
-- [ ] `src/lib/suggestions.ts`:
-  - `type Suggestion = Quote & { author: string; sourceUrl: string; person: string; foundAt: string }`
-  - zod schema for the model's output: `{ quotes: { text, author, sourceUrl }[] }`.
-  - `dedupeSuggestions(found, existingQuotes, existingSuggestions)` drops anything whose
-    text already exists, using the same normalisation as `parseQuotes`. Export the
-    key function from `quotes.ts` so both share it.
-  - `isValidSource(url)` accepts `http(s)` URLs only.
-  - `formatForQuotesTxt(s)` gives `text — author`.
-  - Tests for each.
-
-**3. Agent call (`scripts/suggest-quotes.ts`)**
-- [ ] For each person: one `client.messages.parse()` call with
-  - model `claude-opus-5-5`, adaptive thinking (default), `output_config.effort: "medium"`;
-  - tool `{ type: "web_search_20260209", name: "web_search", max_uses: 5 }`;
-  - structured output via the zod schema (`output_config.format`);
-  - a system prompt that says: real quotes only, verbatim, each with the URL of the
-    page it was found on; skip anything misattributed or paraphrased; up to 5 per
-    person; return an empty list rather than guess.
-- [ ] Handle `stop_reason` `refusal` / `max_tokens` (skip the person and log why).
-  Use typed SDK errors (rate limit vs bad request) and keep going to the next person.
-- [ ] Flags: `--person "Name"` (run just one), `--limit N` (quotes per person).
-- [ ] At the start, check that structured outputs and web search work in the same
-  request. If they don't, fall back to a strict client tool `save_quotes` with
-  `tool_choice: auto`, and record the decision here.
-
-**4. Pending file + review**
-- [ ] Append results to `src/data/suggestions.json` (array of `Suggestion`, pretty-printed,
-  stable order), already de-duplicated against `quotes.txt` and earlier suggestions.
-- [ ] `pnpm quotes:review`: an interactive CLI (`node:readline`) that walks
-  through pending suggestions. **a**pprove appends to `quotes.txt` and removes the
-  suggestion from pending; **r**eject records it in `src/data/rejected.json` so it
-  isn't suggested again; **s**kip leaves it pending; **e**dit changes the text, then approves.
-- [ ] Rejected texts are included in the de-dupe set.
+**4. Settings UI (Paper Kite style)**
+- [ ] Edit quotes list and people list.
+- [ ] "Find new quotes" button runs the Task 2 agent server-side (extract the agent call
+  from `scripts/suggest-quotes.ts` into `src/lib`, shared by CLI and route).
+- [ ] Review suggestions: approve / reject / edit.
 
 **5. Verify**
-- [ ] `pnpm test`, `pnpm check`, `pnpm build` all green. The site build ignores `suggestions.json`.
-- [ ] Real run for the 2 sample people produces sourced suggestions. Spot-check
-  that every `sourceUrl` opens and contains the quote.
-- [ ] Approve one through `quotes:review` and confirm it shows on the home page after `pnpm build`.
-- [ ] No API key in git (`git grep -i sk-ant` is empty).
+- [ ] `pnpm test`, `pnpm check`, `pnpm build` green; style guide acceptance checks on `/settings`.
+- [ ] Login works, wrong password rejected, unauthenticated API calls get 401.
+- [ ] End to end: add a person, run the agent, approve, see it on `/` without a redeploy.
 
 ### Out of scope
 
-Browser UI for running the agent or editing lists, a DB, auth, scheduled runs:
-those are Task 3 and later.
-
-### Decisions / notes
-
-- The agent only **suggests**. `quotes.txt` stays the single live source, and only
-  `quotes:review` (or a manual edit) writes to it.
-- One API call per person keeps failures isolated and costs visible. Log token usage per person.
-- `sourceUrl` is required; a suggestion without one is dropped.
+Multi-user accounts, OAuth, per-user data (Task 4); scheduled agent runs.

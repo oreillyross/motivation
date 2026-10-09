@@ -10,6 +10,7 @@ something changes later, record it in the task that changed it.
 |---|---|---|---|---|---|
 | 1 | Quotes on the home page (MVP V1) | 2026-10-08 | `god/laughing-pasteur-q8do3e` | [oreillyross/motivation#2](https://github.com/oreillyross/motivation/pull/2) | [2026-10-08-task1-quotes-home-page.md](2026-10-08-task1-quotes-home-page.md) |
 | – | Micro edit: rename to Motivation, quote first | 2026-10-08 | `god/sleepy-ramanujan-ncyqn9` | – | [2026-10-08-micro-edit-motivation-quote-first.md](2026-10-08-micro-edit-motivation-quote-first.md) |
+| 2 | Agent-suggested quotes from people I follow | 2026-10-09 | `god/eloquent-lamport-2eshsr` | PR_LINK | [2026-10-09-task2-agent-suggested-quotes.md](2026-10-09-task2-agent-suggested-quotes.md) |
 
 ## How to archive a task
 
