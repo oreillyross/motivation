@@ -1,0 +1,81 @@
+name: Suggest quotes for new people
+
+# When people.txt changes on main, find quotes for the newly added people and
+# commit them straight to quotes.txt (no review step). Vercel then redeploys.
+on:
+  push:
+    branches: [main]
+    paths: [src/data/people.txt]
+  workflow_dispatch:
+    inputs:
+      person:
+        description: "Run for one person (must be in people.txt). Leave empty to run for everyone."
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: suggest-quotes
+  cancel-in-progress: false
+
+jobs:
+  suggest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Work out who to run for
+        id: who
+        env:
+          PERSON: ${{ inputs.person }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          : > people-to-run.txt
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            if [ -n "$PERSON" ]; then printf '%s\n' "$PERSON" > people-to-run.txt
+            else grep -vE '^\s*(#|$)' src/data/people.txt > people-to-run.txt || true; fi
+          else
+            # Only lines added by this push, so existing people don't cost tokens again.
+            git diff --unified=0 HEAD~1 HEAD -- src/data/people.txt \
+              | grep -E '^\+[^+]' | sed 's/^+//' | grep -vE '^\s*(#|$)' > people-to-run.txt || true
+          fi
+          echo "People to run:"; cat people-to-run.txt
+          echo "count=$(wc -l < people-to-run.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
+
+      - name: Suggest and auto-approve quotes
+        if: steps.who.outputs.count != '0'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          while IFS= read -r person; do
+            pnpm quotes:suggest --auto-approve --person "$person"
+          done < people-to-run.txt
+
+      - name: Commit and push
+        if: steps.who.outputs.count != '0'
+        run: |
+          rm -f people-to-run.txt
+          if git diff --quiet -- src/data/quotes.txt; then
+            echo "No new quotes found."; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/quotes.txt
+          git commit -m "quotes: auto-add suggestions for new people"
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -5,10 +5,11 @@ import { parsePeople } from "../src/lib/people";
 import {
   FoundQuotesSchema,
   dedupeSuggestions,
+  formatForQuotesTxt,
   type FoundQuote,
   type Suggestion,
 } from "../src/lib/suggestions";
-import { PATHS, readQuotes, readRejected, readSuggestions, readText, writeSuggestions } from "./data";
+import { PATHS, appendQuoteLine, readQuotes, readRejected, readSuggestions, readText, writeSuggestions } from "./data";
 
 const MODEL = "claude-haiku-5-5";
 const MAX_TOKENS = 16000;
@@ -48,7 +49,12 @@ const SAVE_QUOTES: Anthropic.Tool = {
 };
 
 const { values: args } = parseArgs({
-  options: { person: { type: "string" }, limit: { type: "string" } },
+  options: {
+    person: { type: "string" },
+    limit: { type: "string" },
+    // Skip the review step: write straight to quotes.txt (used by the CI workflow).
+    "auto-approve": { type: "boolean", default: false },
+  },
 });
 const limit = Math.max(1, Number(args.limit ?? 5) || 5);
 
@@ -157,8 +163,13 @@ for (const person of people) {
     const fresh = dedupeSuggestions(res.found.slice(0, limit), live, pending, rejected);
     const foundAt = new Date().toISOString();
     const items: Suggestion[] = fresh.map((f) => ({ ...f, person, foundAt }));
-    pending = [...pending, ...items];
-    writeSuggestions(pending); // save per person so a later failure loses nothing
+    if (args["auto-approve"]) {
+      for (const item of items) appendQuoteLine(formatForQuotesTxt(item));
+      live.push(...items); // keep later people de-duped against this run
+    } else {
+      pending = [...pending, ...items];
+      writeSuggestions(pending); // save per person so a later failure loses nothing
+    }
     added += items.length;
     console.log(
       `  ${res.found.length} found, ${items.length} new · tokens in ${res.usage.input_tokens} / out ${res.usage.output_tokens} (${mode})`,
@@ -176,4 +187,4 @@ for (const person of people) {
   }
 }
 
-console.log(`\nDone. ${added} new suggestion(s); ${pending.length} pending. Review with: pnpm quotes:review`);
+console.log(`\nDone. ${added} new quote(s) ${args["auto-approve"] ? "added to quotes.txt" : `pending (${pending.length} total). Review with: pnpm quotes:review`}`);
