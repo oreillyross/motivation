@@ -5,7 +5,7 @@
 | **Status** | Code done; four items open (need `ANTHROPIC_API_KEY` / Ross) |
 | **Completed** | 2026-10-09 |
 | **Branch** | `god/eloquent-lamport-2eshsr` |
-| **Pull request** | PR_LINK |
+| **Pull request** | [oreillyross/motivation#4](https://github.com/oreillyross/motivation/pull/4) |
 
 The task as planned (from `docs/tasks.md`), then what was built, decisions, and
 verification. Boxes left unticked below were **not** done; they are carried into Task 3.
