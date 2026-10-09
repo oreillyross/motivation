@@ -61,6 +61,7 @@ jobs:
         if: steps.who.outputs.count != '0'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           while IFS= read -r person; do
             pnpm quotes:suggest --auto-approve --person "$person"

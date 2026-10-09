@@ -52,7 +52,7 @@ src/
   layouts/               BaseLayout.astro (fonts, theme script)          [Task 1+]
   pages/                 routes                                          [Task 1+]
 scripts/                 CLI: suggest-quotes.ts (agent), review-quotes.ts, data.ts   [Task 2]
-.github/workflows/       suggest-quotes.yml: new people in people.txt -> auto-add quotes (needs repo secret ANTHROPIC_API_KEY)
+.github/workflows/       suggest-quotes.yml: new people in people.txt -> auto-add quotes (needs repo secret ANTHROPIC_API_KEY or OPENAI_API_KEY)
 public/                  favicon, social card                            [Task 1+]
 ```
 
@@ -68,7 +68,7 @@ pnpm dev          # local dev server
 pnpm build        # static build to dist/
 pnpm check        # astro check (types)
 pnpm test         # vitest (lib/ helpers)
-pnpm quotes:suggest [--person "Name"] [--limit N]   # agent -> suggestions.json (needs ANTHROPIC_API_KEY)
+pnpm quotes:suggest [--person "Name"] [--limit N]   # agent -> suggestions.json (needs ANTHROPIC_API_KEY or OPENAI_API_KEY; --provider anthropic|openai)
 pnpm quotes:suggest --auto-approve ...              # no review: appends straight to quotes.txt (CI uses this)
 pnpm quotes:review                                  # approve/reject/skip/edit -> quotes.txt
 ```
