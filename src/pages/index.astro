@@ -28,12 +28,16 @@ const first = quotes[0];
             <button
               type="button"
               data-another
+              aria-keyshortcuts="Space"
               hidden
               class="inline-flex h-11 items-center rounded-full border-2 border-foreground bg-primary px-5 text-base leading-[1.2] font-bold text-primary-foreground shadow-hard transition-[transform,box-shadow,background-color] duration-150 ease-bounce hover:bg-primary-hover hover:shadow-hard-lg active:shadow-hard-sm motion-safe:hover:-translate-x-px motion-safe:hover:-translate-y-px motion-safe:active:translate-x-0.5 motion-safe:active:translate-y-0.5"
             >
               Another one
             </button>
           </div>
+          <p data-another-hint hidden class="mt-3 text-center text-small text-muted-foreground">
+            or press space
+          </p>
           <script type="application/json" id="quotes-data" set:html={JSON.stringify(quotes).replace(/</g, "\\u003c")} />
         </section>
       ) : (
@@ -56,9 +60,11 @@ const first = quotes[0];
 
 <script>
   import { pickIndex, type Quote } from "../lib/quotes";
+  import { isNextQuoteKey } from "../lib/shortcut";
 
   const data = document.getElementById("quotes-data");
   const button = document.querySelector<HTMLButtonElement>("[data-another]");
+  const hint = document.querySelector<HTMLElement>("[data-another-hint]");
   const text = document.querySelector<HTMLElement>("[data-quote-text]");
   const caption = document.querySelector<HTMLElement>("[data-quote-author]");
 
@@ -78,8 +84,15 @@ const first = quotes[0];
     show(pickIndex(quotes.length));
 
     if (button && quotes.length > 1) {
+      const next = () => show(pickIndex(quotes.length, { exclude: current }));
       button.hidden = false;
-      button.addEventListener("click", () => show(pickIndex(quotes.length, { exclude: current })));
+      if (hint) hint.hidden = false;
+      button.addEventListener("click", next);
+      document.addEventListener("keydown", (e) => {
+        if (!isNextQuoteKey(e, e.target as HTMLElement | null)) return;
+        e.preventDefault(); // stop the page scrolling
+        next();
+      });
     }
   }
 </script>

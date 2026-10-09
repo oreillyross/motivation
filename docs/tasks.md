@@ -19,8 +19,9 @@ the home page with no redeploy.
 
 ### Carried over from Task 2
 
-- [ ] Real `pnpm quotes:suggest` run for the 2 sample people (needs `ANTHROPIC_API_KEY`).
-  Spot-check every `sourceUrl`.
+- [ ] Spot-check the sources. The GitHub Action has already run live once (2026-10-09, 5 quotes added for
+  Jordan B Peterson, commit `5aeb2c6`), so the agent works end to end in CI. Still open: check each quote's
+  source page in the Actions log, and whether the first quotes suit the site (one was political).
 - [ ] Confirm which path the live API accepts: structured output + web search, or the
   `save_quotes` fallback. Record it in the archive and here.
 - [ ] Approve one real suggestion via `quotes:review` and confirm it shows after `pnpm build`.
