@@ -1,0 +1,55 @@
+# Wikiquote pages for `pnpm quotes:wikiquote`. One title per line, exactly as on
+# en.wikiquote.org. Add `| topic` for theme pages (author is read from each quote's citation).
+
+# People
+Marcus Aurelius
+Seneca the Younger
+Epictetus
+Ralph Waldo Emerson
+Henry David Thoreau
+Winston Churchill
+Theodore Roosevelt
+Maya Angelou
+Viktor Frankl
+Lao Tzu
+Confucius
+Aristotle
+Marcus Tullius Cicero
+Friedrich Nietzsche
+Mahatma Gandhi
+Martin Luther King Jr.
+Nelson Mandela
+Eleanor Roosevelt
+Abraham Lincoln
+Benjamin Franklin
+Mark Twain
+Helen Keller
+Muhammad Ali
+Bruce Lee
+Vince Lombardi
+Walt Whitman
+Oscar Wilde
+Albert Einstein
+Thomas Edison
+Leonardo da Vinci
+Carl Jung
+Samuel Beckett
+
+# Topics
+Courage | topic
+Perseverance | topic
+Motivation | topic
+Success | topic
+Failure | topic
+Hope | topic
+Discipline | topic
+Habit | topic
+Work | topic
+Wisdom | topic
+Change | topic
+Time | topic
+Happiness | topic
+Resilience | topic
+Patience | topic
+Gratitude | topic
+Fear | topic

@@ -8,6 +8,7 @@ const dataFile = (name: string) => fileURLToPath(new URL(`../src/data/${name}`, 
 export const PATHS = {
   quotes: dataFile("quotes.txt"),
   people: dataFile("people.txt"),
+  wikiquotePages: dataFile("wikiquote-pages.txt"),
   suggestions: dataFile("suggestions.json"),
   rejected: dataFile("rejected.json"),
 };

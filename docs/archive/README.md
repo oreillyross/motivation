@@ -14,6 +14,7 @@ something changes later, record it in the task that changed it.
 | – | Automation: add quotes when people.txt changes | 2026-10-09 | `god/eloquent-lamport-2eshsr` | [oreillyross/motivation#5](https://github.com/oreillyross/motivation/pull/5) | [2026-10-09-automation-suggest-quotes-action.md](2026-10-09-automation-suggest-quotes-action.md) |
 | – | Micro edit: Anthropic or OpenAI provider | 2026-10-09 | `god/eloquent-lamport-2eshsr` | [oreillyross/motivation#5](https://github.com/oreillyross/motivation/pull/5) | [2026-10-09-micro-edit-openai-provider.md](2026-10-09-micro-edit-openai-provider.md) |
 | – | Micro edit: Space bar shows another quote | 2026-10-09 | `god/eloquent-lamport-2eshsr` | [oreillyross/motivation#6](https://github.com/oreillyross/motivation/pull/6) | [2026-10-09-micro-edit-spacebar-next-quote.md](2026-10-09-micro-edit-spacebar-next-quote.md) |
+| – | Micro edit: Import quotes from Wikiquote | 2026-10-09 | `god/great-turing-tlv0f9` | – | [2026-10-09-micro-edit-wikiquote-import.md](2026-10-09-micro-edit-wikiquote-import.md) |
 
 ## How to archive a task
 
