@@ -51,6 +51,7 @@ src/
   components/            Astro components                                [Task 1+]
   layouts/               BaseLayout.astro (fonts, theme script)          [Task 1+]
   pages/                 routes                                          [Task 1+]
+  integrations/          quick-add.ts: dev-only POST /api/quotes -> quotes.txt
 scripts/                 CLI: suggest-quotes.ts (agent), review-quotes.ts, import-wikiquote.ts, data.ts   [Task 2]
 .github/workflows/       suggest-quotes.yml: new people in people.txt -> auto-add quotes (needs repo secret ANTHROPIC_API_KEY or OPENAI_API_KEY)
 public/                  favicon, social card                            [Task 1+]
@@ -64,7 +65,7 @@ Use `<img>` only for exported, hex-baked variants (favicon, social card).
 
 ```bash
 pnpm install
-pnpm dev          # local dev server
+pnpm dev          # local dev server (+ "Add a quote" form that appends to quotes.txt)
 pnpm build        # static build to dist/
 pnpm check        # astro check (types)
 pnpm test         # vitest (lib/ helpers)
