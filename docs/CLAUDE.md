@@ -52,8 +52,9 @@ src/
   layouts/               BaseLayout.astro (fonts, theme script)          [Task 1+]
   pages/                 routes                                          [Task 1+]
   integrations/          quick-add.ts: dev-only POST /api/quotes -> quotes.txt
-scripts/                 CLI: suggest-quotes.ts (agent), review-quotes.ts, import-wikiquote.ts, data.ts   [Task 2]
+scripts/                 CLI: suggest-quotes.ts (agent), review-quotes.ts, import-wikiquote.ts, add-quote-from-issue.ts, data.ts   [Task 2]
 .github/workflows/       suggest-quotes.yml: new people in people.txt -> auto-add quotes (needs repo secret ANTHROPIC_API_KEY or OPENAI_API_KEY)
+                         add-quote.yml: owner's "[quote]" issue (live site's Add a quote form) -> quotes.txt
 public/                  favicon, social card                            [Task 1+]
 ```
 
@@ -65,7 +66,7 @@ Use `<img>` only for exported, hex-baked variants (favicon, social card).
 
 ```bash
 pnpm install
-pnpm dev          # local dev server (+ "Add a quote" form that appends to quotes.txt)
+pnpm dev          # local dev server (+ "Add a quote" form that appends to quotes.txt; live site opens a GitHub issue instead)
 pnpm build        # static build to dist/
 pnpm check        # astro check (types)
 pnpm test         # vitest (lib/ helpers)
@@ -73,6 +74,7 @@ pnpm quotes:suggest [--person "Name"] [--limit N]   # agent -> suggestions.json 
 pnpm quotes:suggest --auto-approve ...              # no review: appends straight to quotes.txt (CI uses this)
 pnpm quotes:wikiquote [--page "Title" [--topic]] [--per-page N] [--dry-run]   # Wikiquote -> appends sourced quotes to quotes.txt (needs WIKIQUOTE_CONTACT)
 pnpm quotes:review                                  # approve/reject/skip/edit -> quotes.txt
+pnpm quotes:from-issue                              # ISSUE_BODY (Add a quote issue) -> quotes.txt (CI uses this)
 ```
 
 ## Conventions

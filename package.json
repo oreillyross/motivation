@@ -12,7 +12,8 @@
     "astro": "astro",
     "quotes:suggest": "tsx --env-file-if-exists=.env scripts/suggest-quotes.ts",
     "quotes:wikiquote": "tsx --env-file-if-exists=.env scripts/import-wikiquote.ts",
-    "quotes:review": "tsx scripts/review-quotes.ts"
+    "quotes:review": "tsx scripts/review-quotes.ts",
+    "quotes:from-issue": "tsx scripts/add-quote-from-issue.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.132.1",
