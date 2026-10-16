@@ -1,0 +1,17 @@
+name: Add a quote
+description: Adds the quote to src/data/quotes.txt (only for the repo owner). The site redeploys from the commit.
+title: "[quote] Add a quote"
+labels: ["quote"]
+body:
+  - type: textarea
+    id: quote
+    attributes:
+      label: Quote
+      description: Paste it here. "Quote — Author" works too.
+    validations:
+      required: true
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      description: Optional. Wins over an author in the paste.

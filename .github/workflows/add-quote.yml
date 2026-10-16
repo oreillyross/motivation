@@ -1,0 +1,74 @@
+name: Add a quote from an issue
+
+# The live site is static, so its "Add a quote" form opens a prefilled issue
+# (.github/ISSUE_TEMPLATE/add-quote.yml). This appends it to quotes.txt, pushes
+# to main (Vercel then redeploys) and closes the issue. Only the repo owner's
+# issues are used; anyone else's are ignored.
+on:
+  issues:
+    types: [opened]
+
+permissions: {}
+
+concurrency:
+  group: add-quote
+  cancel-in-progress: false
+
+jobs:
+  add:
+    if: startsWith(github.event.issue.title, '[quote]') && github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable pnpm via corepack
+        run: corepack enable && corepack prepare pnpm@10 --activate
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Append the quote
+        id: quote
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: pnpm quotes:from-issue
+
+      - name: Commit and push
+        if: steps.quote.outputs.added == 'true'
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/quotes.txt
+          git commit -m "quotes: add from issue #$ISSUE_NUMBER"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Reply on the issue
+        if: always() && steps.quote.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ADDED: ${{ steps.quote.outputs.added }}
+          MESSAGE: ${{ steps.quote.outputs.message }}
+          PUSHED: ${{ job.status }}
+        run: |
+          if [ "$ADDED" != "true" ]; then
+            gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+              --body "Not added: ${MESSAGE}"$'\n\nOpen a new issue to try again.'
+          elif [ "$PUSHED" = "success" ]; then
+            gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed \
+              --comment "$MESSAGE"$'\n\nLive after the next deploy.'
+          else
+            gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+              --body "Couldn't push the quote. See the Actions log, or add it with pnpm dev."
+          fi

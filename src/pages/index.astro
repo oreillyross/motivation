@@ -10,8 +10,10 @@ import { decorative } from "../lib/svg";
 
 const quotes = parseQuotes(raw);
 const first = quotes[0];
-// Quick add writes to src/data/quotes.txt, which only the dev server can do.
-const quickAdd = import.meta.env.DEV;
+// Quick add: the dev server writes src/data/quotes.txt directly. The static live site
+// opens a prefilled GitHub issue instead; .github/workflows/add-quote.yml commits it.
+const devAdd = import.meta.env.DEV;
+const repoUrl = "https://github.com/oreillyross/motivation";
 ---
 
 <BaseLayout>
@@ -40,8 +42,8 @@ const quickAdd = import.meta.env.DEV;
           <p data-another-hint hidden class="mt-3 text-center text-small text-muted-foreground">
             or press space
           </p>
-          {quickAdd && (
-            <form data-quick-add class="mx-auto mt-10 max-w-[48rem]">
+          {
+            <form data-quick-add data-mode={devAdd ? "dev" : "issue"} data-repo={repoUrl} class="mx-auto mt-10 max-w-[48rem]">
               <label for="quick-add-text" class="block text-small font-semibold">Add a quote</label>
               <textarea
                 id="quick-add-text"
@@ -64,12 +66,12 @@ const quickAdd = import.meta.env.DEV;
                   type="submit"
                   class="inline-flex h-11 items-center rounded-full border-2 border-foreground bg-accent px-5 text-base leading-[1.2] font-bold text-accent-foreground shadow-hard transition-[transform,box-shadow] duration-150 ease-bounce hover:shadow-hard-lg active:shadow-hard-sm motion-safe:hover:-translate-x-px motion-safe:hover:-translate-y-px motion-safe:active:translate-x-0.5 motion-safe:active:translate-y-0.5"
                 >
-                  Add to my list
+                  {devAdd ? "Add to my list" : "Add via GitHub"}
                 </button>
               </div>
               <p data-quick-add-status role="status" class="mt-2 min-h-[1.5em] text-small text-muted-foreground" />
             </form>
-          )}
+          }
           <script type="application/json" id="quotes-data" set:html={JSON.stringify(quotes).replace(/</g, "\\u003c")} />
         </section>
       ) : (
@@ -93,6 +95,7 @@ const quickAdd = import.meta.env.DEV;
 <script>
   import { pickIndex, type Quote } from "../lib/quotes";
   import { isNextQuoteKey } from "../lib/shortcut";
+  import { quoteIssueUrl } from "../lib/quote-issue";
 
   const data = document.getElementById("quotes-data");
   const button = document.querySelector<HTMLButtonElement>("[data-another]");
@@ -152,6 +155,13 @@ const quickAdd = import.meta.env.DEV;
     form?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const fields = new FormData(form);
+      if (form.dataset.mode === "issue") {
+        const input = { text: String(fields.get("text") ?? ""), author: String(fields.get("author") ?? "") };
+        window.open(quoteIssueUrl(form.dataset.repo ?? "", input), "_blank", "noopener");
+        if (status) status.textContent = "Opened GitHub. Submit the issue there and it goes live after the next deploy.";
+        form.reset();
+        return;
+      }
       if (status) status.textContent = "Saving…";
       try {
         const res = await fetch("/api/quotes", {

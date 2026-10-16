@@ -16,6 +16,7 @@ something changes later, record it in the task that changed it.
 | – | Micro edit: Space bar shows another quote | 2026-10-09 | `god/eloquent-lamport-2eshsr` | [oreillyross/motivation#6](https://github.com/oreillyross/motivation/pull/6) | [2026-10-09-micro-edit-spacebar-next-quote.md](2026-10-09-micro-edit-spacebar-next-quote.md) |
 | – | Micro edit: Import quotes from Wikiquote | 2026-10-09 | `god/great-turing-tlv0f9` | – | [2026-10-09-micro-edit-wikiquote-import.md](2026-10-09-micro-edit-wikiquote-import.md) |
 | – | Micro edit: Trim quotes to 74 + quick-add form | 2026-10-14 | `god/friendly-fermat-yk16r6` | – | [2026-10-14-micro-edit-quick-add-quote.md](2026-10-14-micro-edit-quick-add-quote.md) |
+| – | Micro edit: Quick add on the live site (GitHub issue) | 2026-10-16 | `god/elegant-einstein-ati2yu` | – | [2026-10-16-micro-edit-quick-add-live.md](2026-10-16-micro-edit-quick-add-live.md) |
 
 ## How to archive a task
 
